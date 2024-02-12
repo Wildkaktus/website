@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Seite</title>
+<style>
+/* div, a, p, img, button {
+    outline: dashed 1px rgb(255, 0, 255);
+} */
+#text {
+color: #c0c0c0
+}
+#demo {
+display: none;
+color: #c0c0c0
+}
+#reglogp {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+}
+#lg {
+position: relative;
+margin-right: 5px;
+}
+#rg {
+position: relative;
+}
+#loginp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+}
+#close {
+position: relative;
+display: none; 
+margin-right: 5px;
+}
+#del {
+position: relative;
+display: none;
+}
+#container {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+#regist {
+  display: none;
+}
+#lbt {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+}
+#lclose {
+  display: none;
+  position: relative;
+  margin-right: 5px;
+}
+#lok {
+  position: relative;
+  display: none;
+}
+#rok {
+  position: relative;
+  display: none;
+}
+#image {
+display: unset;
+width:25px;
+height:25px;
+position: relative;
+top:8px;
+}
+</style>
+  </head>
+  <body style="background-color:#455A6A">
+	<div id="container">
+	<div id="text">
+	<span id="h">Hallo</span>
+	<img id="image" src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="User Icon">
+	<span id="ben">Benutzer</span>
+	<br>
+	</div>
+  <div id="reglogp">
+    <button id="lg" onclick="showlinput()">Login</button>
+	  <button id="rg" onclick="showrinput()">Register</button>
+  </div>
+  <br>
+  <form id="regist">
+    <br>
+    <input id="name" type="text" placeholder="Username">
+    <br>
+    <input id="pass" type="password" placeholder="Password">
+  </form>
+	<br>
+  <div id="lbt">
+    <button id="lclose" onclick="lclose()">Back</button>
+    <button id="lok" onclick="checkCredentials()">Bestätigen</button>
+    <button id="rok" onclick="validatePassword()">Bestätigen</button>
+</div>
+	<span id="demo">Passwort</span>
+	<br>
+  <div id="loginp">
+    <button id="close" onclick="logout()">Logout</button>
+	  <button id="del" onclick="deleteAccount()">Delete Account</button>
+  </div>
+	</div>
+  </body>
+
+<script>
+let login = [];
+
+function showlinput() {
+var f = document.getElementById("regist");
+var o = document.getElementById("lok");
+var r = document.getElementById("rg");
+var lb = document.getElementById("lg");
+var lc = document.getElementById("lclose");
+var n = document.getElementById("name");
+var p = document.getElementById("pass");
+var lb = document.getElementById("lg");
+  n.style.display = "unset";
+  p.style.display = "unset";
+  lb.style.display = "none";
+  lc.style.display = "unset";
+  f.style.display = "unset";
+  o.style.display = "unset";
+  r.style.display = "none";
+  n.style.display = "unset";
+  p.style.display = "unset";
+}
+
+function lclose() {
+console.log("closed");
+var lb = document.getElementById("lg");
+var n = document.getElementById("name");
+var p = document.getElementById("pass");
+var rok = document.getElementById("rok");
+var l = document.getElementById("lclose");
+var x = document.getElementById("rg");
+var lb = document.getElementById("lg");
+var lok = document.getElementById("lok");
+var y = document.getElementById("demo");
+var z = document.getElementById("del");
+var f = document.getElementById("regist");
+var t = document.getElementById("text");
+
+lb.style.display = "unset";
+lok.style.display = "none";
+rok.style.display = "none";
+l.style.display = "none";
+x.style.display = "unset";
+y.style.display = "none";
+z.style.display = "none";
+t.style.display = "unset";
+f.style.display = "none";
+n.value = "";
+p.value = "";
+n.style.display = "none";
+p.style.display = "none";
+}
+
+function showrinput() {
+var f = document.getElementById("regist");
+var o = document.getElementById("rok");
+var r = document.getElementById("rg");
+var lb = document.getElementById("lg");
+var n = document.getElementById("name");
+var p = document.getElementById("pass");
+var lc = document.getElementById("lclose");
+
+  lc.style.display = "unset";
+  n.style.display = "unset";
+  p.style.display = "unset";
+  lb.style.display = "none";
+  f.style.display = "unset";
+  o.style.display = "unset";
+  r.style.display = "none";
+}
+
+function validatePassword() {
+    var f = document.getElementById("regist");
+    var o = document.getElementById("rok");
+    var l = document.getElementById("close");
+    var x = document.getElementById("rg");
+    var y = document.getElementById("demo");
+    var z = document.getElementById("del");
+
+    var usernameBlacklist = ["admin", "root", "superuser"];
+    var passwordBlacklist = ["password", "123456", "qwerty"];
+
+    var ni = document.getElementById("name");
+    var n = ni.value;
+    var pi = document.getElementById("pass");
+    var p = pi.value;
+    const exists = login.findIndex(item => item.name === n && item.passwort === p);
+    console.log("login array:", login);
+    console.log("n:", n, "p:", p);
+
+if (exists !== -1) {
+  console.log("exists:", exists);
+	
+	alert("User already exists!");
+
+    } else {
+    if (usernameBlacklist.includes(n.toLowerCase()) || passwordBlacklist.includes(p)) {
+        alert("Error: Username or Password is blacklisted. Please try again.");
+    } else if (p === "" && n === "") {
+        alert("Error: Username or Password cannot be empty. Please try again.");
+    } else {
+        showlogedin();
+        addToArray(n, p)
+    		}
+	}
+}
+function logout() {
+var l = document.getElementById("close");
+var x = document.getElementById("rg");
+var y = document.getElementById("demo");
+var z = document.getElementById("del");
+var lb = document.getElementById("lg");
+var t = document.getElementById("ben");
+var image = document.getElementById("image");
+var n = document.getElementById("name");
+var p = document.getElementById("pass");
+lb.style.display = "unset";
+ l.style.display = "none";
+ x.style.display = "unset";
+ y.style.display = "none";
+ z.style.display = "none";
+ image.style.display = "unset";
+ n.value = "";
+ p.value = "";
+document.getElementById("ben").innerHTML = "Benutzer";
+}
+
+function deleteAccount() {
+var capchar = Math.floor(Math.random() * 900) + 100;
+let check =  prompt("Please enter the given Code: " + capchar)
+if (check !== "" && check === String(capchar)) {
+var l = document.getElementById("close");
+var x = document.getElementById("rg");
+var y = document.getElementById("demo");
+var z = document.getElementById("del");
+var ni = document.getElementById("name");
+var n = ni.value;
+var pi = document.getElementById("pass");
+var p = pi.value;
+var lg = document.getElementById("lg");
+var t = document.getElementById("text");
+var image = document.getElementById("image");
+ lg.style.display = "unset"; 
+ l.style.display = "none";
+ x.style.display = "unset";
+ y.style.display = "none";
+ z.style.display = "none";
+ image.style.display = "unset";
+ 
+// Assuming login is a global array
+let indexToRemove = login.findIndex(item => item.name === n && item.passwort === p);
+
+if (indexToRemove !== -1) {
+    login.splice(indexToRemove, 1);
+    console.log(login);
+    l.style.display = "none";
+    x.style.display = "unset";
+    y.style.display = "none";
+    z.style.display = "none";
+    t.style.display = "unset";
+    document.getElementById("ben").innerHTML = "Benutzer";
+    alert("Your account was deleted successfully!");
+    ni.value = "";
+    pi.value = "";
+} else {
+    alert("No matching account found!");
+}
+  } else {
+alert("The entered code was wrong!");
+  }
+}
+function addToArray(name, passwort) {
+    const exists = login.some(item => item.name === name && item.passwort === passwort);
+    if (!exists) {
+        login.push({ name: name, passwort: passwort });
+        alert(name + " dein Passwort ist: "+ passwort);
+        console.log(login);
+    } else {
+        console.log("User with the same name and password already exists.");
+    }
+}
+
+function showlogedin() {
+var f = document.getElementById("regist");
+var o = document.getElementById("rok");
+var l = document.getElementById("close");
+var lb = document.getElementById("lok");
+var x = document.getElementById("rg");
+var y = document.getElementById("demo");
+var z = document.getElementById("del");
+var ni = document.getElementById("name");
+var n = ni.value;
+var pi = document.getElementById("pass");
+var p = pi.value;
+var bb = document.getElementById("lclose");
+var image = document.getElementById("image");
+
+l.style.display = "unset";
+lb.style.display = "none";
+f.style.display = "none";
+o.style.display = "none";
+x.style.display = "none";
+y.style.display = "unset";
+z.style.display = "unset";
+bb.style.display = "none";
+image.style.display = "none";
+document.getElementById("demo").innerHTML = "dein neues Passwort ist: " + "<i>" + p + "</i>";
+document.getElementById("ben").innerHTML = "<b>" + n + "</b>" + ",";
+console.log(login)
+console.log('------')
+}
+
+function checkCredentials() {
+    var ni = document.getElementById("name");
+    var n = ni.value;
+    var pi = document.getElementById("pass");
+    var p = pi.value;
+    const user = login.find(item => item.name === n && item.passwort === p);
+
+    if (user) {
+        console.log("Credentials match for user:", user.name);
+        alert("Willkommen zurück: " + n);
+        showlogedin();
+    } else {
+        console.log("Credentials do not match any user.");
+        alert("The Username or Password is wrong")
+    }
+}
+// function addToArray(name, passwort) {
+//     login.push({ name: name, passwort: passwort });
+// }
+</script>
+</html>
